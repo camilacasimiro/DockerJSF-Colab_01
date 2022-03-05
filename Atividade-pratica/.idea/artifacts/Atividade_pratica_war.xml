@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="Atividade-pratica-1.0.war">
+    <root id="archive" name="app.war">
       <element id="artifact" artifact-name="Atividade-pratica:war exploded" />
     </root>
   </artifact>
