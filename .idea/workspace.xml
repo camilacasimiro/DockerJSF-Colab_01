@@ -9,17 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f93c2db-f716-4677-b4df-f1dc93eefeca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Recursos/recurso_01/recurso_01.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recursos/recurso_02/recurso_02.iml" afterDir="false" />
-    </list>
+    <list default="true" id="0f93c2db-f716-4677-b4df-f1dc93eefeca" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/ads-dac-jsf-base" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -134,6 +131,7 @@
       <updated>1646355717032</updated>
       <workItem from="1646355719386" duration="2690000" />
       <workItem from="1646358438810" duration="800000" />
+      <workItem from="1646510448655" duration="105000" />
     </task>
     <servers />
   </component>
