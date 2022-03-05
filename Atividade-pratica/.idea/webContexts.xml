@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Banda/edit.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/Banda" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Banda/list.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/Banda" />
       </map>
     </option>
   </component>

@@ -11,10 +11,7 @@ public class Banda {
     private List<Integrante> integrantes;
 
     public Banda() {
-        this.id = id;
-        this.localDeOrigem = localDeOrigem;
-        this.nomeFantasia = nomeFantasia;
-        this.integrantes = integrantes;
+
     }
     public Banda(int id, String localDeOrigem, String nomeFantasia, List<Integrante> integrantes) {
         this.id = id;
