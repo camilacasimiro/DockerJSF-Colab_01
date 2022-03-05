@@ -18,4 +18,4 @@ services:
     image: jheycf/banco
     build: postgres
     ports:
-      - "5433:5432"
+      - "5444:5432"
