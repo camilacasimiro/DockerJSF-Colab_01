@@ -1,10 +1,11 @@
 package com.pratica.domain;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BandaInterface {
 
-    public List<Banda> listaBandas();
+    public List<Banda> listaBandas() throws ClassNotFoundException, SQLException;
 
     public void adicionaBanda (Banda banda);
 

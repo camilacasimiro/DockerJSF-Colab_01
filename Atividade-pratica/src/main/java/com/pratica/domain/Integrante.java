@@ -7,7 +7,7 @@ public class Integrante {
     private int id;
     private String nome;
     private LocalDate dataDeNascimento;
-    private CPF cpf = new CPF("");
+    private String cpf;
 
     public Integrante() {
         this.id = id;
@@ -16,7 +16,7 @@ public class Integrante {
         this.cpf = cpf;
     }
 
-    public Integrante(int id, String nome, LocalDate dataDeNascimento, CPF cpf) {
+    public Integrante(int id, String nome, LocalDate dataDeNascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
@@ -47,11 +47,11 @@ public class Integrante {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public CPF getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(CPF cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
