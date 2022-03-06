@@ -11,7 +11,7 @@ public interface BandaInterface {
 
     public void atualizaBanda (Banda banda);
 
-    public void removeBanda (Banda banda);
+    public Boolean removeBanda (Banda banda);
 
     public List<Banda> buscaBanda(String localDeOrigem);
 }

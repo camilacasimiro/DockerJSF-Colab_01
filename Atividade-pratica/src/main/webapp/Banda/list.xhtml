@@ -21,7 +21,7 @@
 
 
 
-    <h:dataTable id="Tabela" value="#{controler.listBanda()}" var="banda">
+    <h:dataTable id="Tabela" value="#{controller.listBanda()}" var="banda">
         <h:column>
             <f:facet name="header">Nome Fantasia</f:facet>
             <h:outputText value="#{banda.nomeFantasia}"/>
@@ -32,11 +32,11 @@
         </h:column>
         <h:column>
             <f:facet name="header">Integrantes</f:facet>
-            <h:outputText value="Jennifer, Camila e Fagne" />
+            <h:outputText value="#{banda.integrantes}" />
         </h:column>
         <h:column>
             <f:facet name="header">remover</f:facet>
-            <h:commandButton value=" X "  class=" btn" />
+            <h:commandButton value="#{controller.deleteBanda(banda)}"  class=" btn" />
         </h:column>
         <h:column>
             <f:facet name="header">editar</f:facet>

@@ -3,6 +3,7 @@ package com.pratica.infra;
 import com.pratica.controller.BandaController;
 import com.pratica.domain.Banda;
 import com.pratica.domain.BandaInterface;
+import com.pratica.domain.Integrante;
 
 import javax.ejb.Stateless;
 import java.sql.Connection;
@@ -40,16 +41,11 @@ public class BandaJDBC implements BandaInterface {
     public List<Banda> listaBandas() throws ClassNotFoundException, SQLException {
         try{
             List<Banda> bandas= new ArrayList<>();
-//            statement = this.connection.createStatement();
-            logger.log(Level.INFO, "Banda");
             ResultSet bandaResult = connection.prepareStatement("SELECT * FROM banda").executeQuery();
-
-            logger.log(Level.INFO, "Lista banda",bandaResult);
 //            next percore o ResultSet e reforna false quando estar na ultima posição
             while ( bandaResult.next() ){
                 bandas.add(bandaGuia(bandaResult));
             }
-
             return bandas;
 
         } catch(SQLException ex){
@@ -62,14 +58,23 @@ public class BandaJDBC implements BandaInterface {
         int id = result.getInt("id");
         String localDeOrigem = result.getString("LocalDeOrigem");
         String nomeFantasia = result.getString("NomeFantasia");
-//        List<Integrante> integrantes = new ArrayList<>();
+        List<Integrante> integrantes = new ArrayList<>();
 
-        return new Banda(id, localDeOrigem, nomeFantasia, null);
+        return new Banda(id, localDeOrigem, nomeFantasia, integrantes);
     }
 
     @Override
     public void adicionaBanda(Banda banda) {
+        try{
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia) VALUES (?, ?)");
 
+            statement.setString(1, banda.getLocalDeOrigem());
+            statement.setString(2, banda.getNomeFantasia());
+            statement.executeQuery();
+
+        } catch (SQLException e){
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
@@ -78,8 +83,15 @@ public class BandaJDBC implements BandaInterface {
     }
 
     @Override
-    public void removeBanda(Banda banda) {
-
+    public Boolean removeBanda(Banda banda) {
+        try{
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM integrante_banda WHERE id=?");
+            statement.setInt(1, banda.getId());
+            statement.executeQuery();
+        } catch (SQLException e){
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return true;
     }
 
     @Override
