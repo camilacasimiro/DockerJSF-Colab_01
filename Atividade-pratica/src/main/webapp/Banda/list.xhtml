@@ -21,14 +21,14 @@
 
 
 
-    <h:dataTable id="Tabela" var="banda" value="">
+    <h:dataTable id="Tabela" value="#{controler.listBanda()}" var="banda">
         <h:column>
             <f:facet name="header">Nome Fantasia</f:facet>
-            <h:outputText value="Calcinha Preta"/>
+            <h:outputText value="#{banda.nomeFantasia}"/>
         </h:column>
         <h:column>
             <f:facet name="header">Local de origem</f:facet>
-            <h:outputText value="Fortaleza"/>
+            <h:outputText value="#{banda.localDeOrigem}"/>
         </h:column>
         <h:column>
             <f:facet name="header">Integrantes</f:facet>
