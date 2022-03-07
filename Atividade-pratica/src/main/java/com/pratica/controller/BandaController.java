@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Named("controler")
+@Named("controller")
 @SessionScoped
 public class BandaController implements Serializable {
 
@@ -25,19 +25,22 @@ public class BandaController implements Serializable {
     private static final Logger logger = Logger.getLogger(BandaController.class.getName());
 
     public BandaController() {
-
         logger.log(Level.INFO, "Lista banda");
         this.bandaInterface = (BandaInterface) new BandaJDBC();
     }
 
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-//        resultBandas.add(new Banda(1, "CZ", "SHow" ));
-//        resultBandas.add(new Banda(2, "Triunfo", "Balada" ));
-//        resultBandas.add(new Banda(3, "Ss", "Casa da diversão" ));
-        logger.log(Level.INFO, "Lista banda");
 
         return this.bandaInterface.listaBandas();
 
+    }
+
+    public void deleteBanda(Banda banda){
+        logger.log(Level.INFO, "Banda " + banda.getNomeFantasia() );
+        if(this.bandaInterface.removeBanda(banda)){
+            String s = "/Banda/list?faces-redirect=true";
+            logger.log(Level.INFO, "Banda " + banda.getNomeFantasia() + " removida com sucesso");
+        }
     }
 
 }
