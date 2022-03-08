@@ -1,12 +1,13 @@
 package com.pratica.domain;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Integrante {
     private int id;
     private String nome;
-    private LocalDate dataDeNascimento;
+    private Date dataDeNascimento;
     private String cpf;
 
     public Integrante() {
@@ -16,7 +17,7 @@ public class Integrante {
         this.cpf = cpf;
     }
 
-    public Integrante(int id, String nome, LocalDate dataDeNascimento, String cpf) {
+    public Integrante(int id, String nome, Date dataDeNascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
@@ -39,11 +40,11 @@ public class Integrante {
         this.nome = nome;
     }
 
-    public LocalDate getDataDeNascimento() {
+    public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(LocalDate dataDeNascimento) {
+    public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 

@@ -14,7 +14,7 @@ CREATE TABLE banda(
 CREATE TABLE integrante_banda(
      id_banda int,
      id_integrante int,
-     FOREIGN KEY (id_banda) REFERENCES banda(id) ON DELETE RESTRICT,
-     FOREIGN KEY (id_integrante) REFERENCES integrante(id) ON DELETE RESTRICT,
+     FOREIGN KEY (id_banda) REFERENCES banda(id) ON DELETE CASCADE,
+     FOREIGN KEY (id_integrante) REFERENCES integrante(id) ON DELETE CASCADE,
      PRIMARY KEY(id_banda,id_integrante)
 );

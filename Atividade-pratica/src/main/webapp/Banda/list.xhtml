@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
                 template="../template.xhtml"
 >
 
@@ -17,8 +18,11 @@
     <ui:define name="container-template">
         <h1 class="header center orange-text">Lista de Bandas</h1>
 
-<h:form>
+<h:form id="form">
 
+<!--    [Banda{id=1, localDeOrigem='Pernambuco', nomeFantasia='Asa Branca', integrantes=[Integrante{id=1, nome='Mariana', dataDeNascimento=1997-05-20, cpf=1234564}]}, Banda{id=2, localDeOrigem='São Paulo', nomeFantasia='Banda Djavu', integrantes=[Integrante{id=2, nome='Josefa', dataDeNascimento=1989-08-10, cpf=1234458}]}]]]-->
+
+    [
 
 
     <h:dataTable id="Tabela" value="#{controller.listBanda()}" var="banda">
@@ -28,15 +32,18 @@
         </h:column>
         <h:column>
             <f:facet name="header">Local de origem</f:facet>
-            <h:outputText value="#{banda.localDeOrigem}"/>
+            <h:outputText value="#{banda.localDeOrigem}" />
         </h:column>
         <h:column>
             <f:facet name="header">Integrantes</f:facet>
-            <h:outputText value="#{banda.integrantes}" />
+            <p:selectOneMenu id="option" var="integrante" value="#{banda.integrantes}">
+            <f:selectItem itemLabel="Integrantes" itemValue=""/>
+            <f:selectItems value="#{integrante}" />
+            </p:selectOneMenu>
         </h:column>
         <h:column>
             <f:facet name="header">remover</f:facet>
-            <h:commandButton value="#{controller.deleteBanda(banda)}"  class=" btn" />
+            <h:commandButton action="#{controller.deleteBanda(banda)}"  class=" btn" />
         </h:column>
         <h:column>
             <f:facet name="header">editar</f:facet>

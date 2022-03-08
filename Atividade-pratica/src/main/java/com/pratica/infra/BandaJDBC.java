@@ -11,9 +11,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +24,6 @@ public class BandaJDBC implements BandaInterface {
     private static final Logger logger = Logger.getLogger(BandaController.class.getName());
     public BandaJDBC() {
 
-        logger.log(Level.INFO, "JDBC");
         try {
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(
@@ -41,10 +39,11 @@ public class BandaJDBC implements BandaInterface {
     public List<Banda> listaBandas() throws ClassNotFoundException, SQLException {
         try{
             List<Banda> bandas= new ArrayList<>();
-            ResultSet bandaResult = connection.prepareStatement("SELECT * FROM banda").executeQuery();
+            ResultSet resultQuery = connection.prepareStatement( "SELECT * FROM INTEGRANTE_BANDA IB INNER JOIN BANDA B ON IB.ID_BANDA = B.ID INNER JOIN INTEGRANTE I ON IB.ID_INTEGRANTE = I.ID").executeQuery();
 //            next percore o ResultSet e reforna false quando estar na ultima posição
-            while ( bandaResult.next() ){
-                bandas.add(bandaGuia(bandaResult));
+            while ( resultQuery.next() ){
+                bandas.add(converterBanda(resultQuery));
+                System.out.println(bandas);
             }
             return bandas;
 
@@ -54,12 +53,18 @@ public class BandaJDBC implements BandaInterface {
         }
     }
 
-    public Banda bandaGuia (ResultSet result) throws SQLException{
+    public Banda converterBanda (ResultSet result) throws SQLException{
         int id = result.getInt("id");
         String localDeOrigem = result.getString("LocalDeOrigem");
         String nomeFantasia = result.getString("NomeFantasia");
-        List<Integrante> integrantes = new ArrayList<>();
 
+        int idIntegrante = result.getInt("id_integrante");
+        String nomeIntegrate = result.getString("nome");
+        Date dataNascimento = result.getDate("datadenascimento");
+        String cpfIntegrante = result.getString(("cpf"));
+
+        List<Integrante> integrantes = new ArrayList<>();
+        integrantes.add( new Integrante(idIntegrante,nomeIntegrate, dataNascimento, cpfIntegrante));
         return new Banda(id, localDeOrigem, nomeFantasia, integrantes);
     }
 
@@ -85,7 +90,7 @@ public class BandaJDBC implements BandaInterface {
     @Override
     public Boolean removeBanda(Banda banda) {
         try{
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM integrante_banda WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM banda WHERE id=?");
             statement.setInt(1, banda.getId());
             statement.executeQuery();
         } catch (SQLException e){

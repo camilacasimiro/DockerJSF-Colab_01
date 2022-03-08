@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Named("controller")
 @SessionScoped
@@ -22,6 +23,7 @@ public class BandaController implements Serializable {
     private Banda banda = new Banda();
     private List<Banda> resultBandas = new ArrayList<>();
     private BandaInterface bandaInterface;
+    private List<Banda> integranteList = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(BandaController.class.getName());
 
     public BandaController() {
@@ -30,10 +32,18 @@ public class BandaController implements Serializable {
     }
 
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
+        List<Banda> listaBanda = this.bandaInterface.listaBandas();
+//      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
+        logger.log(Level.INFO, "Integrantes " + integranteList );
 
-        return this.bandaInterface.listaBandas();
-
+        return listaBanda;
     }
+
+    public List<Banda> listaIntegrantes(List<Banda> banda){
+        this.integranteList.addAll(banda);
+        return this.integranteList;
+    }
+
 
     public void deleteBanda(Banda banda){
         logger.log(Level.INFO, "Banda " + banda.getNomeFantasia() );
@@ -43,4 +53,11 @@ public class BandaController implements Serializable {
         }
     }
 
+    public List<Banda> getIntegranteList() {
+        return integranteList;
+    }
+
+    public void setIntegranteList(List<Banda> integranteList) {
+        this.integranteList = integranteList;
+    }
 }
