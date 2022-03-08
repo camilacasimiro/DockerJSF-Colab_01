@@ -13,5 +13,5 @@ public interface BandaInterface {
 
     public Boolean removeBanda (Banda banda);
 
-    public List<Banda> buscaBanda(String localDeOrigem);
+    public List<Banda> buscaBanda(String local);
 }

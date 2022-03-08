@@ -84,7 +84,15 @@ public class BandaJDBC implements BandaInterface {
 
     @Override
     public void atualizaBanda(Banda banda) {
-
+        try{
+            PreparedStatement statement = connection.prepareStatement("UPDATE banda SET nomeFantasia=?,localDeOrigem=? WHERE id=?");
+            statement.setString(1, banda.getNomeFantasia());
+            statement.setString(2,banda.getLocalDeOrigem());
+            statement.setInt(3, banda.getId());
+            statement.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
@@ -100,7 +108,26 @@ public class BandaJDBC implements BandaInterface {
     }
 
     @Override
-    public List<Banda> buscaBanda(String localDeOrigem) {
-       return null;
+    public List<Banda> buscaBanda(String local) {
+        try{
+            List<Banda> bandas= new ArrayList<>();
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM banda WHERE localDeOrigem = ?");
+
+            statement.setString(1, local);
+            statement.executeQuery();
+
+            ResultSet bandaResult = statement.getResultSet();
+
+            while ( bandaResult.next() ){
+                bandas.add(converterBanda(bandaResult));
+            }
+            return bandas;
+
+        } catch(SQLException ex){
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return Collections.EMPTY_LIST;
+        }
     }
 }

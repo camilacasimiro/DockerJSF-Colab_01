@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="../template.xhtml">
 
@@ -17,49 +17,49 @@
     <ui:define name="container-template">
         <h1 class="header center orange-text">Lista de Bandas</h1>
 
-        <div class="card">
 
-            <h:form>
-                <div class="p-col-12 p-md-4">
-                    <div class="ui-inputgroup">
-                        <p:inputText placeholder="🔎 buscar"/>
-                        <p:commandButton icon="pi pi-search" styleClass="ui-button-warning"/>
-                    </div>
+        <h:form id="form">
+
+            <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <p:inputText placeholder="  🔎 buscar" value="#{controller.local}"/>
+                    <p:commandButton update="form"
+                                     icon="pi pi-search"
+                                     styleClass="ui-button-warning"/>
                 </div>
-            </h:form>
+            </div>
 
-        </div>
-<h:form>
+            <h:dataTable id="Tabela" value="#{controller.searchBandas()}" var="banda">
 
-    <h:dataTable id="Tabela" value="#{controller.listBanda()}" var="banda">
-        <h:column>
-            <f:facet name="header">Nome Fantasia</f:facet>
-            <h:outputText value="#{banda.nomeFantasia}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">Local de origem</f:facet>
-            <h:outputText value="#{banda.localDeOrigem}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">Integrantes</f:facet>
-            <h:outputText value="#{banda.integrantes}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">remover</f:facet>
-            <h:commandButton value="#{controller.deleteBanda(banda)}"  class=" btn" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">editar</f:facet>
-            <h:commandButton value=" ⚙ " class="btn"/>
-        </h:column>
-    </h:dataTable>
 
-    <h:panelGroup layout="block" class="row center">
-        <h:commandLink value="adicionar" action="edit" class="btn-large waves-effect waves-light orange"
-                       id="download-button"/>
-    </h:panelGroup>
+                <h:column>
+                    <f:facet name="header">Nome Fantasia</f:facet>
+                    <h:outputText value="#{banda.nomeFantasia}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Local de origem</f:facet>
+                    <h:outputText value="#{banda.localDeOrigem}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Integrantes</f:facet>
+                    <h:outputText value="#{banda.integrantes}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">remover</f:facet>
+                    <h:commandButton value="#{controller.deleteBanda(banda)}"  class=" btn" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">editar</f:facet>
+                    <h:commandButton value=" ⚙ " class="btn"/>
+                </h:column>
+            </h:dataTable>
 
-</h:form>
+            <h:panelGroup layout="block" class="row center">
+                <h:commandLink value="adicionar" action="edit" class="btn-large waves-effect waves-light orange"
+                               id="download-button"/>
+            </h:panelGroup>
+
+        </h:form>
 
     </ui:define>
 
