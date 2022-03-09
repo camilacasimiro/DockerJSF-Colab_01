@@ -19,18 +19,19 @@
         <h1 class="header center orange-text">Adicionar Banda</h1>
 
         <h:form>
-            <h:panelGrid>
+            <h:panelGrid id="tabela">
+
                 <h:outputLabel value="Nome da banda"/>
-                <h:inputText id="name" value=""/>
+                <h:inputText value="#{controller.banda.nomeFantasia}"/>
 
                 <h:outputLabel value="Origem"/>
-                <h:inputText id="origem" value=""/>
+                <h:inputText value="#{controller.banda.localDeOrigem}"/>
 
-                <h:selectOneMenu id="selectIntegrantes" value="" >
+                <h:selectOneMenu id="selectIntegrantes">
                     <f:selectItem itemValue="" itemLabel="Integrantes" />
                 </h:selectOneMenu>
 
-                <h:commandButton value="Salvar" class="btn"/>
+                <h:commandButton action="#{controller.inserirBanda()}" value="Salvar" class="btn"/>
             </h:panelGrid>
         </h:form>
     </ui:define>

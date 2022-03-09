@@ -57,24 +57,25 @@ public class BandaJDBC implements BandaInterface {
         int id = result.getInt("id");
         String localDeOrigem = result.getString("LocalDeOrigem");
         String nomeFantasia = result.getString("NomeFantasia");
-
-        int idIntegrante = result.getInt("id_integrante");
-        String nomeIntegrate = result.getString("nome");
-        Date dataNascimento = result.getDate("datadenascimento");
-        String cpfIntegrante = result.getString(("cpf"));
-
-        List<Integrante> integrantes = new ArrayList<>();
-        integrantes.add( new Integrante(idIntegrante,nomeIntegrate, dataNascimento, cpfIntegrante));
-        return new Banda(id, localDeOrigem, nomeFantasia, integrantes);
+//
+//        int idIntegrante = result.getInt("id_integrante");
+//        String nomeIntegrate = result.getString("nome");
+//        Date dataNascimento = result.getDate("datadenascimento");
+//        String cpfIntegrante = result.getString(("cpf"));
+//
+//        List<Integrante> integrantes = new ArrayList<>();
+//        integrantes.add( new Integrante(idIntegrante,nomeIntegrate, dataNascimento, cpfIntegrante));
+        return new Banda(id, localDeOrigem, nomeFantasia, null);
     }
 
     @Override
     public void adicionaBanda(Banda banda) {
         try{
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia) VALUES (?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia, integrante) VALUES (?, ?, ?)");
 
             statement.setString(1, banda.getLocalDeOrigem());
             statement.setString(2, banda.getNomeFantasia());
+            statement.setArray(3, null);
             statement.executeQuery();
 
         } catch (SQLException e){
@@ -128,6 +129,32 @@ public class BandaJDBC implements BandaInterface {
         } catch(SQLException ex){
             Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
             return Collections.EMPTY_LIST;
+        }
+    }
+
+    public Banda buscaBandaById(int id) {
+        try{
+
+            logger.log(Level.INFO, "Banda busca Entrando ");
+            Banda banda = null;
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "DISTINCT SELECT * FROM banda WHERE id= ?");
+
+            statement.setInt(1, id);
+            statement.executeQuery();
+
+            ResultSet bandaResult = statement.getResultSet();
+
+                banda = converterBanda(bandaResult);
+
+                logger.log(Level.INFO, "Banda busca : " + banda);
+
+            return banda;
+
+        } catch(SQLException ex){
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }

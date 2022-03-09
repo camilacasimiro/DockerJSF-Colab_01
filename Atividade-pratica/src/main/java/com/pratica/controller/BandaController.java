@@ -6,8 +6,13 @@ import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 import com.pratica.infra.BandaJDBC;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,38 +28,19 @@ public class BandaController implements Serializable {
 
     private Banda banda = new Banda();
     private List<Banda> resultBandas = new ArrayList<>();
+    @EJB
     private BandaInterface bandaInterface;
     private List<Banda> integranteList = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(BandaController.class.getName());
     private String local;
 
-    public BandaController() {
+    public BandaController() throws SQLException, ClassNotFoundException {
         logger.log(Level.INFO, "Lista banda");
-        this.bandaInterface = (BandaInterface) new BandaJDBC();
     }
 
-//    public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-//        List<Banda> listaBanda = this.bandaInterface.listaBandas();
-////      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
-//        logger.log(Level.INFO, "Integrantes " + integranteList );
-//
-//        return listaBanda;
-//    }
-
-
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-        List<Banda> bandas = new ArrayList<>();
-        List<Integrante> integrantes = new ArrayList<>();
 
-        integrantes.add(new Integrante(1, "Jhey", null, "11111111111") );
-        integrantes.add(new Integrante(2, "Camila", null, "22222222222"));
-        integrantes.add(new Integrante(2, "Camila", null, "33333333333"));
-
-        bandas.add(new Banda(1, "IF", "DAC", integrantes) );
-        logger.log(Level.INFO, "Banda " + bandas);
-
-        return Collections.unmodifiableList(bandas);
-
+        return this.bandaInterface.listaBandas();
     }
 
     public List<Banda> listaIntegrantes(List<Banda> banda){
@@ -62,20 +48,34 @@ public class BandaController implements Serializable {
         return this.integranteList;
     }
 
+    public String updateBanda(Banda banda){
+        logger.log(Level.INFO, "Banda update " + banda.getNomeFantasia() );
+        this.banda = banda;
+        return "/Banda/edit?faces-redirect=true";
+    }
 
     public void deleteBanda(Banda banda){
         logger.log(Level.INFO, "Banda " + banda.getNomeFantasia() );
         if(this.bandaInterface.removeBanda(banda)){
             String s = "/Banda/list?faces-redirect=true";
-            logger.log(Level.INFO, "Banda " + banda.getNomeFantasia() + " removida com sucesso");
         }
     }
 
     public List<Banda> searchBandas() {
         this.resultBandas = this.bandaInterface.buscaBanda(this.local);
-//        logger.log(Level.INFO, "Local de Origem" + resultBandas);
         return resultBandas;
     }
+
+    public String inserirBanda() throws SQLException, ClassNotFoundException {
+        if(this.banda.getId() > 0){
+        this.bandaInterface.atualizaBanda(this.banda);
+        } else{
+            this.bandaInterface.adicionaBanda(this.banda);
+        }
+        this.banda = new Banda();
+        return "/Banda/list?faces-redirect=true";
+    }
+
 
     public String getLocal() {
         return local;
@@ -91,5 +91,13 @@ public class BandaController implements Serializable {
 
     public void setIntegranteList(List<Banda> integranteList) {
         this.integranteList = integranteList;
+    }
+
+    public Banda getBanda() {
+        return banda;
+    }
+
+    public void setBanda(Banda banda) {
+        this.banda = banda;
     }
 }

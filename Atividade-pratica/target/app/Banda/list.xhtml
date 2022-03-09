@@ -20,11 +20,6 @@
 
 <h:form id="form">
 
-<!--    [Banda{id=1, localDeOrigem='Pernambuco', nomeFantasia='Asa Branca', integrantes=[Integrante{id=1, nome='Mariana', dataDeNascimento=1997-05-20, cpf=1234564}]}, Banda{id=2, localDeOrigem='São Paulo', nomeFantasia='Banda Djavu', integrantes=[Integrante{id=2, nome='Josefa', dataDeNascimento=1989-08-10, cpf=1234458}]}]]]-->
-
-    [
-
-
     <h:dataTable id="Tabela" value="#{controller.listBanda()}" var="banda">
         <h:column>
             <f:facet name="header">Nome Fantasia</f:facet>
@@ -36,18 +31,18 @@
         </h:column>
         <h:column>
             <f:facet name="header">Integrantes</f:facet>
-            <p:selectOneMenu id="option"  var="integrante" value="#{banda.integrantes}">
+            <p:selectOneMenu id="option" var="integrante" value="#{banda.integrantes}">
             <f:selectItem itemLabel="Integrantes" itemValue=""/>
             <f:selectItems value="#{integrante}" />
             </p:selectOneMenu>
         </h:column>
         <h:column>
             <f:facet name="header">remover</f:facet>
-            <h:commandButton action="#{controller.deleteBanda(banda)}"  class=" btn" />
+            <h:commandButton action="#{controller.deleteBanda(banda)}" value=" X "  class=" btn" />
         </h:column>
         <h:column>
             <f:facet name="header">editar</f:facet>
-            <h:commandButton value=" ⚙ " class="btn"/>
+            <h:commandButton action="#{controller.updateBanda(banda)}" value=" ⚙ " class="btn"/>
         </h:column>
     </h:dataTable>
 
