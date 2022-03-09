@@ -18,22 +18,22 @@
         <h1 class="header center orange-text">Lista de Integrantes</h1>
 
         <h:form>
-            <h:dataTable id="Tabela" var="Nome" value="">
+            <h:dataTable id="Tabela" value="#{controllerInteg.listIntegrantes()}" var="integrante">
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
-                    <h:outputText value="Jacinto"/>
+                    <h:outputText value="#{integrante.nome}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Data de Nascimento</f:facet>
-                    <h:outputText value="16/11/1980"/>
+                    <h:outputText value="#{integrante.dataDeNascimento}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">CPF</f:facet>
-                    <h:outputText value="1561564056-90"/>
+                    <h:outputText value="#{integrante.cpf}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">remover</f:facet>
-                    <h:commandButton value=" X "  class=" btn" />
+                    <h:commandButton action="#{controllerInteg.deleteIntegrante(integrante)}" value="X"  class=" btn" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">editar</f:facet>

@@ -10,7 +10,7 @@ public interface IntegranteInterface {
 
     public void atualizaIntegrante (Integrante integrante);
 
-    public void removeIntegrante (Integrante integrante);
+    public Boolean removeIntegrante (Integrante integrante);
 
-    public Integrante buscaIntegrante (String cpf);
+    public List<Integrante> buscaIntegrante (String cpf);
 }
