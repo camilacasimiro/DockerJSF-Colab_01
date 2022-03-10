@@ -27,10 +27,10 @@
                 <h:outputLabel value="Data de Nascimento"/>
                 <h:inputText value="#{controllerInteg.integrante.dataDeNascimento}"/>
 
-                <h:outputLabel value="Data de Nascimento"/>
+                <h:outputLabel value="CPF"/>
                 <h:inputText value="#{controllerInteg.integrante.cpf}"/>
 
-                <h:commandButton action="#{controllerInteg.inserirIntegrante()}" value="Salvar" class="btn"/>
+                <h:commandButton action="#{controllerInteg.salvarIntegrante()}" value="Salvar" class="btn"/>
             </h:panelGrid>
         </h:form>
     </ui:define>

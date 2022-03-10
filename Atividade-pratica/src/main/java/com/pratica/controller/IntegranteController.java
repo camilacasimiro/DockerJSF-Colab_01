@@ -1,16 +1,19 @@
 package com.pratica.controller;
 
+import com.pratica.domain.Banda;
 import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 import com.pratica.domain.IntegranteInterface;
 import com.pratica.infra.IntegranteJDBC;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 @Named("controllerInteg")
@@ -21,16 +24,13 @@ public class IntegranteController  implements Serializable {
     private List<Integrante> integranteList = new ArrayList<>();
     private String cpf;
     private Integrante integrante;
-
     public IntegranteController() {
         this.integranteInterface = (IntegranteInterface) new IntegranteJDBC();
     }
 
 
     public List<Integrante> listIntegrantes(){
-        List<Integrante> listIntegrante = this.integranteInterface.listaIntegrantes();
-
-        return listIntegrante;
+        return this.integranteInterface.listaIntegrantes();
     }
 
     public List<Integrante> searchIntegrante() {
@@ -51,8 +51,14 @@ public class IntegranteController  implements Serializable {
         }
         this.integrante = new Integrante();
 
-        return "/integrantes/list?faces-redirect=true";
+        return "/Integrante/edit?faces-redirect=true";
     }
+
+    public String updateIntegrante(Integrante integrante){
+        this.integrante = integrante;
+        return "/Integrante/edit?faces-redirect=true";
+    }
+
 
     public String getCpf() {
         return cpf;
