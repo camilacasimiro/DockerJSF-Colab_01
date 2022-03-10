@@ -71,11 +71,10 @@ public class BandaJDBC implements BandaInterface {
     @Override
     public void adicionaBanda(Banda banda) {
         try{
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia, integrante) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia) VALUES (?, ?, ?)");
 
             statement.setString(1, banda.getLocalDeOrigem());
             statement.setString(2, banda.getNomeFantasia());
-            statement.setArray(3, null);
             statement.executeQuery();
 
         } catch (SQLException e){
