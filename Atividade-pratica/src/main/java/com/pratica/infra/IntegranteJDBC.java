@@ -65,7 +65,7 @@ public class IntegranteJDBC implements IntegranteInterface {
                     "INSERT INTO integrante (nome, dataDeNascimento, cpf) VALUES (?, ?, ?)");
 
             statement.setString(1, integrante.getNome());
-            statement.setDate(2, (Date) integrante.getDataDeNascimento());
+            statement.setDate(2, integrante.getDataDeNascimento());
             statement.setString(3, integrante.getCpf());
             statement.executeQuery();
 

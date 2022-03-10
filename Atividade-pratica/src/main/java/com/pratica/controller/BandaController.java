@@ -33,29 +33,29 @@ public class BandaController implements Serializable {
         this.bandaInterface = (BandaInterface) new BandaJDBC();
     }
 
-//    public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-//        List<Banda> listaBanda = this.bandaInterface.listaBandas();
-////      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
-//        logger.log(Level.INFO, "Integrantes " + integranteList );
-//
-//        return listaBanda;
-//    }
-
-
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-        List<Banda> bandas = new ArrayList<>();
-        List<Integrante> integrantes = new ArrayList<>();
+        List<Banda> listaBanda = this.bandaInterface.listaBandas();
+//      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
+        logger.log(Level.INFO, "Integrantes " + integranteList );
 
-        integrantes.add(new Integrante(1, "Jhey", null, "11111111111") );
-        integrantes.add(new Integrante(2, "Camila", null, "22222222222"));
-        integrantes.add(new Integrante(2, "Camila", null, "33333333333"));
-
-        bandas.add(new Banda(1, "IF", "DAC", integrantes) );
-        logger.log(Level.INFO, "Banda " + bandas);
-
-        return Collections.unmodifiableList(bandas);
-
+        return listaBanda;
     }
+
+
+//    public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
+//        List<Banda> bandas = new ArrayList<>();
+//        List<Integrante> integrantes = new ArrayList<>();
+//
+//        integrantes.add(new Integrante(1, "Jhey", null, "11111111111") );
+//        integrantes.add(new Integrante(2, "Camila", null, "22222222222"));
+//        integrantes.add(new Integrante(2, "Camila", null, "33333333333"));
+//
+//        bandas.add(new Banda(1, "IF", "DAC", integrantes) );
+//        logger.log(Level.INFO, "Banda " + bandas);
+//
+//        return Collections.unmodifiableList(bandas);
+//
+//    }
 
     public List<Banda> listaIntegrantes(List<Banda> banda){
         this.integranteList.addAll(banda);

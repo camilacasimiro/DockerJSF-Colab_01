@@ -58,13 +58,13 @@ public class BandaJDBC implements BandaInterface {
         String localDeOrigem = result.getString("LocalDeOrigem");
         String nomeFantasia = result.getString("NomeFantasia");
 
-        int idIntegrante = result.getInt("id_integrante");
-        String nomeIntegrate = result.getString("nome");
-        Date dataNascimento = result.getDate("datadenascimento");
-        String cpfIntegrante = result.getString(("cpf"));
+//        int idIntegrante = result.getInt("id_integrante");
+//        String nomeIntegrate = result.getString("nome");
+//        Date dataNascimento = result.getDate("datadenascimento");
+//        String cpfIntegrante = result.getString(("cpf"));
 
         List<Integrante> integrantes = new ArrayList<>();
-        integrantes.add( new Integrante(idIntegrante,nomeIntegrate, dataNascimento, cpfIntegrante));
+//        integrantes.add( new Integrante(idIntegrante,nomeIntegrate, dataNascimento, cpfIntegrante));
         return new Banda(id, localDeOrigem, nomeFantasia, integrantes);
     }
 

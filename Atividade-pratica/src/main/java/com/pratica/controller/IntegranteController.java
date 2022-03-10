@@ -1,5 +1,6 @@
 package com.pratica.controller;
 
+import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 import com.pratica.domain.IntegranteInterface;
 import com.pratica.infra.IntegranteJDBC;
@@ -7,6 +8,7 @@ import com.pratica.infra.IntegranteJDBC;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +17,10 @@ import java.util.List;
 @SessionScoped
 public class IntegranteController  implements Serializable {
 
-    private final IntegranteInterface integranteInterface;
+    private IntegranteInterface integranteInterface;
     private List<Integrante> integranteList = new ArrayList<>();
     private String cpf;
+    private Integrante integrante;
 
     public IntegranteController() {
         this.integranteInterface = (IntegranteInterface) new IntegranteJDBC();
@@ -40,6 +43,17 @@ public class IntegranteController  implements Serializable {
             String s = "/Integrante/list?faces-redirect=true";
         }
     }
+    public String salvarIntegrante(){
+        if(this.integrante.getId() > 0){
+            this.integranteInterface.atualizaIntegrante(this.integrante);
+        } else{
+            this.integranteInterface.adicionaIntegrante(this.integrante);
+        }
+        this.integrante = new Integrante();
+        integranteInterface.adicionaIntegrante(this.integrante);
+
+        return "/integrantes/list?faces-redirect=true";
+    }
 
     public String getCpf() {
         return cpf;
@@ -49,5 +63,12 @@ public class IntegranteController  implements Serializable {
         this.cpf = cpf;
     }
 
+    public Integrante getIntegrante() {
+        return integrante;
+    }
 
+    public void setIntegrante(Integrante integrante) {
+        this.integrante = integrante;
+    }
+    //3, "maria", null, "156651-60"
 }
