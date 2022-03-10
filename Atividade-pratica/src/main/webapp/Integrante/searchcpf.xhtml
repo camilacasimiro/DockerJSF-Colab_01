@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml"
+>
+
+    <ui:define name="head-template">
+        <h:head>
+            <title>Adicionar Integrante</title>
+        </h:head>
+    </ui:define>
+
+    <ui:define name="container-template">
+        <h1 class="header center orange-text">Busca de Integrantes</h1>
+
+        <h:form id="form">
+            <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <p:inputText placeholder="  🔎 buscar" value="#{controller.local}"/>
+                    <p:commandButton update="form"
+                                     icon="pi pi-search"
+                                     styleClass="ui-button-warning"/>
+                </div>
+            </div>
+            <h:dataTable id="Tabela" var="Nome" value="">
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    <h:outputText value="#{integrante.nome}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data de Nascimento</f:facet>
+                    <h:outputText value="#{integrante.dataDeNascimento}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CPF</f:facet>
+                    <h:outputText value="#{integrante.cpf}/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">remover</f:facet>
+                    <h:commandButton value=" X "  class=" btn" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">editar</f:facet>
+                    <h:commandButton value=" ⚙ " class="btn"/>
+                </h:column>
+            </h:dataTable>
+
+            <h:panelGroup layout="block" class="row center">
+                <h:commandLink value="adicionar" action="edit" class="btn-large waves-effect waves-light orange"
+                               id="download-button"/>
+            </h:panelGroup>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

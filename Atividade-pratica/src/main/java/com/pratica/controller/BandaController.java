@@ -36,7 +36,17 @@ public class BandaController implements Serializable {
 
     public BandaController() throws SQLException, ClassNotFoundException {
         logger.log(Level.INFO, "Lista banda");
+        this.bandaInterface = (BandaInterface) new BandaJDBC();
     }
+
+//    public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
+//        List<Banda> listaBanda = this.bandaInterface.listaBandas();
+////      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
+//        logger.log(Level.INFO, "Integrantes " + integranteList );
+//
+//        return listaBanda;
+//    }
+
 
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
 
@@ -91,13 +101,5 @@ public class BandaController implements Serializable {
 
     public void setIntegranteList(List<Banda> integranteList) {
         this.integranteList = integranteList;
-    }
-
-    public Banda getBanda() {
-        return banda;
-    }
-
-    public void setBanda(Banda banda) {
-        this.banda = banda;
     }
 }
