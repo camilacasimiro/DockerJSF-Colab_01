@@ -50,7 +50,6 @@ public class IntegranteController  implements Serializable {
             this.integranteInterface.adicionaIntegrante(this.integrante);
         }
         this.integrante = new Integrante();
-        integranteInterface.adicionaIntegrante(this.integrante);
 
         return "/integrantes/list?faces-redirect=true";
     }

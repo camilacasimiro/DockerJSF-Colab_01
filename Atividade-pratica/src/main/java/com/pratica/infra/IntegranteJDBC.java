@@ -6,6 +6,7 @@ import com.pratica.domain.Integrante;
 import com.pratica.domain.IntegranteInterface;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +53,13 @@ public class IntegranteJDBC implements IntegranteInterface {
     public Integrante converterIntegrante (ResultSet result) throws SQLException{
         int id = result.getInt("id");
         String nome = result.getString("nome");
-        Date dataDeNascimento = result.getDate("dataDeNascimento");
+        String date = result.getString("dataDeNascimento");
         String cpf = result.getString("cpf");
+        LocalDate dataDeNascimento = LocalDate.of(
+                Integer.parseInt(date.substring(0, 4)),
+                Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10))
+        );
 
         return new Integrante(id, nome, dataDeNascimento, cpf);
     }
@@ -65,7 +71,7 @@ public class IntegranteJDBC implements IntegranteInterface {
                     "INSERT INTO integrante (nome, dataDeNascimento, cpf) VALUES (?, ?, ?)");
 
             statement.setString(1, integrante.getNome());
-            statement.setDate(2, integrante.getDataDeNascimento());
+            statement.setDate(2, java.sql.Date.valueOf(integrante.getDataDeNascimento()));
             statement.setString(3, integrante.getCpf());
             statement.executeQuery();
 
