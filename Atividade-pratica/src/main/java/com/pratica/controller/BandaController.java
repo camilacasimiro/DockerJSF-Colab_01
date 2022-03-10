@@ -28,7 +28,6 @@ public class BandaController implements Serializable {
 
     private Banda banda = new Banda();
     private List<Banda> resultBandas = new ArrayList<>();
-    @EJB
     private BandaInterface bandaInterface;
     private List<Banda> integranteList = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(BandaController.class.getName());
@@ -36,21 +35,14 @@ public class BandaController implements Serializable {
 
     public BandaController() throws SQLException, ClassNotFoundException {
         logger.log(Level.INFO, "Lista banda");
-        this.bandaInterface = (BandaInterface) new BandaJDBC();
+        this.bandaInterface = new BandaJDBC();
+
     }
 
-//    public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-//        List<Banda> listaBanda = this.bandaInterface.listaBandas();
-////      listaBanda.stream().forEach(obj -> this.integranteList.addAll((obj.getIntegrantes())));
-//        logger.log(Level.INFO, "Integrantes " + integranteList );
-//
-//        return listaBanda;
-//    }
-
-
     public List<Banda> listBanda() throws SQLException, ClassNotFoundException {
-
-        return this.bandaInterface.listaBandas();
+        List<Banda> listaBanda = this.bandaInterface.listaBandas();
+        logger.log(Level.INFO, "Integrantes " + integranteList );
+        return listaBanda;
     }
 
     public List<Banda> listaIntegrantes(List<Banda> banda){
@@ -76,10 +68,12 @@ public class BandaController implements Serializable {
         return resultBandas;
     }
 
+
     public String inserirBanda() throws SQLException, ClassNotFoundException {
         if(this.banda.getId() > 0){
-        this.bandaInterface.atualizaBanda(this.banda);
+            this.bandaInterface.atualizaBanda(this.banda);
         } else{
+            logger.log(Level.INFO, "Banda inserir" + this.banda);
             this.bandaInterface.adicionaBanda(this.banda);
         }
         this.banda = new Banda();
@@ -101,5 +95,13 @@ public class BandaController implements Serializable {
 
     public void setIntegranteList(List<Banda> integranteList) {
         this.integranteList = integranteList;
+    }
+
+    public Banda getBanda() {
+        return banda;
+    }
+
+    public void setBanda(Banda banda) {
+        this.banda = banda;
     }
 }

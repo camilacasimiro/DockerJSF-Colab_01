@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Stateless
+
 public class BandaJDBC implements BandaInterface {
 
     private static Connection connection;
@@ -39,7 +39,7 @@ public class BandaJDBC implements BandaInterface {
     public List<Banda> listaBandas() throws ClassNotFoundException, SQLException {
         try{
             List<Banda> bandas= new ArrayList<>();
-            ResultSet resultQuery = connection.prepareStatement( "SELECT * FROM INTEGRANTE_BANDA IB INNER JOIN BANDA B ON IB.ID_BANDA = B.ID INNER JOIN INTEGRANTE I ON IB.ID_INTEGRANTE = I.ID").executeQuery();
+            ResultSet resultQuery = connection.prepareStatement( "SELECT * FROM BANDA").executeQuery();
 //            next percore o ResultSet e reforna false quando estar na ultima posição
             while ( resultQuery.next() ){
                 bandas.add(converterBanda(resultQuery));
@@ -71,7 +71,7 @@ public class BandaJDBC implements BandaInterface {
     @Override
     public void adicionaBanda(Banda banda) {
         try{
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Banda (localDeOrigem, nomeFantasia) VALUES (?, ?)");
 
             statement.setString(1, banda.getLocalDeOrigem());
             statement.setString(2, banda.getNomeFantasia());

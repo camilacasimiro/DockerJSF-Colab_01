@@ -55,7 +55,7 @@ public class IntegranteJDBC implements IntegranteInterface {
         Date dataDeNascimento = result.getDate("dataDeNascimento");
         String cpf = result.getString("cpf");
 
-        return new Integrante(id, nome, dataDeNascimento, cpf);
+        return new Integrante(id, nome, null, cpf);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class IntegranteJDBC implements IntegranteInterface {
                     "INSERT INTO integrante (nome, dataDeNascimento, cpf) VALUES (?, ?, ?)");
 
             statement.setString(1, integrante.getNome());
-            statement.setDate(2, integrante.getDataDeNascimento());
+//            statement.setDate(2, integrante.getDataDeNascimento());
             statement.setString(3, integrante.getCpf());
             statement.executeQuery();
 
