@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Integrante {
-    private int id;
+    private Integer id;
     private String nome;
     private LocalDate dataDeNascimento;
     private String cpf;
@@ -14,18 +14,18 @@ public class Integrante {
 
     }
 
-    public Integrante(int id, String nome, LocalDate dataDeNascimento, String cpf) {
+    public Integrante(Integer id, String nome, LocalDate dataDeNascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
         this.cpf = cpf;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class Integrante {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Integrante that = (Integrante) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override
@@ -72,7 +72,8 @@ public class Integrante {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", dataDeNascimento=" + dataDeNascimento +
-                ", cpf=" + cpf +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
+
 }
