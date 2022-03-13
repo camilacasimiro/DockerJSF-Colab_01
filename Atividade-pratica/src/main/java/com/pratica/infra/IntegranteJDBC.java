@@ -1,6 +1,7 @@
 package com.pratica.infra;
 
 
+import com.pratica.controller.IntegranteController;
 import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 import com.pratica.domain.IntegranteInterface;
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
 public class IntegranteJDBC implements IntegranteInterface {
 
     private static Connection connection;
+
+    private static final Logger logger = Logger.getLogger(IntegranteController.class.getName());
 
     public IntegranteJDBC() {
 
@@ -82,6 +85,7 @@ public class IntegranteJDBC implements IntegranteInterface {
 
     @Override
     public void atualizaIntegrante(Integrante integrante) {
+        logger.log(Level.INFO, "Lista integrante"+ integrante);
         try{
             PreparedStatement statement = connection.prepareStatement("" +
                     "UPDATE integrante SET nome=?, dataDeNascimento=? WHERE id=?");
@@ -130,5 +134,29 @@ public class IntegranteJDBC implements IntegranteInterface {
             return Collections.EMPTY_LIST;
         }
     }
+    public Integrante buscaIntegranteById(int id) {
+        try {
 
+            logger.log(Level.INFO, "Integrante busca Entrando ");
+            Integrante integrante = null;
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "DISTINCT SELECT * FROM integrante WHERE id= ?");
+
+            statement.setInt(1, id);
+            statement.executeQuery();
+
+            ResultSet integranteResult = statement.getResultSet();
+
+            integrante = converterIntegrante(integranteResult);
+
+            logger.log(Level.INFO, "Integrante busca : " + integrante);
+
+            return integrante;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

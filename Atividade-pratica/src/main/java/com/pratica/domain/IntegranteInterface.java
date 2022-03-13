@@ -13,4 +13,6 @@ public interface IntegranteInterface {
     public Boolean removeIntegrante (Integrante integrante);
 
     public List<Integrante> buscaIntegrante (String cpf);
+
+    public Integrante buscaIntegranteById(int id);
 }
