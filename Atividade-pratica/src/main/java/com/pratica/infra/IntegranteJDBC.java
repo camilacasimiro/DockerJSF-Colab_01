@@ -1,11 +1,13 @@
 package com.pratica.infra;
 
 
+import com.pratica.controller.IntegranteController;
 import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 import com.pratica.domain.IntegranteInterface;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.logging.Logger;
 public class IntegranteJDBC implements IntegranteInterface {
 
     private static Connection connection;
+
+    private static final Logger logger = Logger.getLogger(IntegranteController.class.getName());
 
     public IntegranteJDBC() {
 
@@ -52,10 +56,15 @@ public class IntegranteJDBC implements IntegranteInterface {
     public Integrante converterIntegrante (ResultSet result) throws SQLException{
         int id = result.getInt("id");
         String nome = result.getString("nome");
-        Date dataDeNascimento = result.getDate("dataDeNascimento");
+        String date = result.getString("dataDeNascimento");
         String cpf = result.getString("cpf");
+        LocalDate dataDeNascimento = LocalDate.of(
+                Integer.parseInt(date.substring(0, 4)),
+                Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10))
+        );
 
-        return new Integrante(id, nome, null, cpf);
+        return new Integrante(id, nome, dataDeNascimento, cpf);
     }
 
     @Override
@@ -65,7 +74,7 @@ public class IntegranteJDBC implements IntegranteInterface {
                     "INSERT INTO integrante (nome, dataDeNascimento, cpf) VALUES (?, ?, ?)");
 
             statement.setString(1, integrante.getNome());
-//            statement.setDate(2, integrante.getDataDeNascimento());
+            statement.setDate(2, java.sql.Date.valueOf(integrante.getDataDeNascimento()));
             statement.setString(3, integrante.getCpf());
             statement.executeQuery();
 
@@ -76,12 +85,14 @@ public class IntegranteJDBC implements IntegranteInterface {
 
     @Override
     public void atualizaIntegrante(Integrante integrante) {
+        logger.log(Level.INFO, "Lista integrante"+ integrante);
         try{
             PreparedStatement statement = connection.prepareStatement("" +
-                    "UPDATE integrante SET nome=?, dataDeNascimento=? WHERE id=?");
+                    "UPDATE integrante SET nome=?, cpf, dataDeNascimento=? WHERE id=?");
             statement.setString(1, integrante.getNome());
-            statement.setString(2, String.valueOf(integrante.getDataDeNascimento()));
-            statement.setInt(3, integrante.getId());
+            statement.setString(2, integrante.getCpf());
+            statement.setString(3, String.valueOf(integrante.getDataDeNascimento()));
+            statement.setInt(4, integrante.getId());
             statement.executeQuery();
         } catch (SQLException e) {
             Logger.getLogger(IntegranteJDBC.class.getName()).log(Level.SEVERE, null, e);
@@ -124,5 +135,29 @@ public class IntegranteJDBC implements IntegranteInterface {
             return Collections.EMPTY_LIST;
         }
     }
+    public Integrante buscaIntegranteById(int id) {
+        try {
 
+            logger.log(Level.INFO, "Integrante busca Entrando ");
+            Integrante integrante = null;
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "DISTINCT SELECT * FROM integrante WHERE id= ?");
+
+            statement.setInt(1, id);
+            statement.executeQuery();
+
+            ResultSet integranteResult = statement.getResultSet();
+
+            integrante = converterIntegrante(integranteResult);
+
+            logger.log(Level.INFO, "Integrante busca : " + integrante);
+
+            return integrante;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

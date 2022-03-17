@@ -21,13 +21,13 @@
         <h:form id="form">
             <div class="p-col-12 p-md-4">
                 <div class="ui-inputgroup">
-                    <p:inputText placeholder="  🔎 buscar" value="#{controller.local}"/>
+                    <p:inputText placeholder="  🔎 buscar" value="#{controllerInteg.cpf}"/>
                     <p:commandButton update="form"
                                      icon="pi pi-search"
                                      styleClass="ui-button-warning"/>
                 </div>
             </div>
-            <h:dataTable id="Tabela" var="Nome" value="">
+            <h:dataTable id="Tabela" var="integrante" value="#{controllerInteg.searchIntegrante()}">
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
                     <h:outputText value="#{integrante.nome}"/>
@@ -38,7 +38,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">CPF</f:facet>
-                    <h:outputText value="#{integrante.cpf}/>
+                    <h:outputText value="#{integrante.cpf}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">remover</f:facet>

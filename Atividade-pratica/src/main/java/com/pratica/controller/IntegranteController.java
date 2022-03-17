@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @Named("controllerInteg")
@@ -21,6 +23,7 @@ public class IntegranteController  implements Serializable {
     private List<Integrante> integranteList = new ArrayList<>();
     private String cpf;
     private Integrante integrante;
+    private static final Logger logger = Logger.getLogger(IntegranteController.class.getName());
 
     public IntegranteController() {
         this.integranteInterface = (IntegranteInterface) new IntegranteJDBC();
@@ -44,15 +47,21 @@ public class IntegranteController  implements Serializable {
         }
     }
     public String salvarIntegrante(){
+        logger.log(Level.INFO, "Lista integrante no controller"+ this.integrante);
         if(this.integrante.getId() > 0){
             this.integranteInterface.atualizaIntegrante(this.integrante);
         } else{
             this.integranteInterface.adicionaIntegrante(this.integrante);
         }
         this.integrante = new Integrante();
-        integranteInterface.adicionaIntegrante(this.integrante);
 
-        return "/integrantes/list?faces-redirect=true";
+        return "/Integrante/list?faces-redirect=true";
+    }
+    public String updateIntegrante( Integrante integrante){
+        logger.log(Level.INFO, "Integrante " + integrante.getNome() );
+        this.integrante = integrante;
+        return "/Integrante/edit?faces-redirect=true";
+
     }
 
     public String getCpf() {
@@ -70,5 +79,5 @@ public class IntegranteController  implements Serializable {
     public void setIntegrante(Integrante integrante) {
         this.integrante = integrante;
     }
-    //3, "maria", null, "156651-60"
+
 }
