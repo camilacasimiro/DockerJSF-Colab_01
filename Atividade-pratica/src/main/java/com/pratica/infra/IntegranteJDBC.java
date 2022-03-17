@@ -88,10 +88,11 @@ public class IntegranteJDBC implements IntegranteInterface {
         logger.log(Level.INFO, "Lista integrante"+ integrante);
         try{
             PreparedStatement statement = connection.prepareStatement("" +
-                    "UPDATE integrante SET nome=?, dataDeNascimento=? WHERE id=?");
+                    "UPDATE integrante SET nome=?, cpf, dataDeNascimento=? WHERE id=?");
             statement.setString(1, integrante.getNome());
-            statement.setString(2, String.valueOf(integrante.getDataDeNascimento()));
-            statement.setInt(3, integrante.getId());
+            statement.setString(2, integrante.getCpf());
+            statement.setString(3, String.valueOf(integrante.getDataDeNascimento()));
+            statement.setInt(4, integrante.getId());
             statement.executeQuery();
         } catch (SQLException e) {
             Logger.getLogger(IntegranteJDBC.class.getName()).log(Level.SEVERE, null, e);

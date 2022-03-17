@@ -46,7 +46,7 @@ public class IntegranteController  implements Serializable {
             String s = "/Integrante/list?faces-redirect=true";
         }
     }
-    public void salvarIntegrante(){
+    public String salvarIntegrante(){
         logger.log(Level.INFO, "Lista integrante no controller"+ this.integrante);
         if(this.integrante.getId() > 0){
             this.integranteInterface.atualizaIntegrante(this.integrante);
@@ -55,7 +55,7 @@ public class IntegranteController  implements Serializable {
         }
         this.integrante = new Integrante();
 
-        String s = "/integrante/list?faces-redirect=true";
+        return "/Integrante/list?faces-redirect=true";
     }
     public String updateIntegrante( Integrante integrante){
         logger.log(Level.INFO, "Integrante " + integrante.getNome() );
