@@ -1,33 +1,31 @@
 package com.pratica.domain;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Integrante {
-    private int id;
+    private Integer id;
     private String nome;
     private LocalDate dataDeNascimento;
-    private CPF cpf = new CPF("");
+    private String cpf;
 
     public Integrante() {
+
+    }
+
+    public Integrante(Integer id, String nome, LocalDate dataDeNascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
         this.cpf = cpf;
     }
 
-    public Integrante(int id, String nome, LocalDate dataDeNascimento, CPF cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.dataDeNascimento = dataDeNascimento;
-        this.cpf = cpf;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,11 +45,11 @@ public class Integrante {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public CPF getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(CPF cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -60,7 +58,7 @@ public class Integrante {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Integrante that = (Integrante) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override
@@ -74,7 +72,8 @@ public class Integrante {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", dataDeNascimento=" + dataDeNascimento +
-                ", cpf=" + cpf +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
+
 }
