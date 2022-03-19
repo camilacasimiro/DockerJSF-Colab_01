@@ -7,7 +7,7 @@ Processo de Desenvolvimento de Software
 Professor: Ricardo de Sousa Job
 </div>
 
-# Atividade Colaborativa 02 – Session Beans
+# Atividade Colaborativa 01 - Docker e JSF
 
 ## EQuipe:
 - <a href="https://github.com/camilacasimiro" alt="github">Camila Casimiro</a>
@@ -16,7 +16,6 @@ Professor: Ricardo de Sousa Job
 
 <h1>Questões e Respostas</h1>
 
-Teste de objetivos de aprendizagem
 
 1. Qual a diferença entre image e container?
 
