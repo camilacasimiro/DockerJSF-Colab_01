@@ -1,20 +1,19 @@
 package com.pratica.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Integrante {
     private Integer id;
     private String nome;
     private LocalDate dataDeNascimento;
-    private String cpf;
+    private CPF cpf;
 
     public Integrante() {
 
     }
 
-    public Integrante(Integer id, String nome, LocalDate dataDeNascimento, String cpf) {
+    public Integrante(Integer id, String nome, LocalDate dataDeNascimento, CPF cpf) {
         this.id = id;
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
@@ -45,11 +44,11 @@ public class Integrante {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public String getCpf() {
+    public CPF getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(CPF cpf) {
         this.cpf = cpf;
     }
 
@@ -72,8 +71,7 @@ public class Integrante {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", dataDeNascimento=" + dataDeNascimento +
-                ", cpf='" + cpf + '\'' +
+                ", cpf=" + cpf +
                 '}';
     }
-
 }

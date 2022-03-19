@@ -16,4 +16,6 @@ public interface BandaInterface {
     public List<Banda> buscaBanda(String local);
 
     public  Banda buscaBandaById(int id);
+
+    public List<Integrante> localizarIntegranteComId(int idBanda);
 }

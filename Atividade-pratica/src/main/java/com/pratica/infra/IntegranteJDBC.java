@@ -43,7 +43,6 @@ public class IntegranteJDBC implements IntegranteInterface {
 //            next percore o ResultSet e reforna false quando estar na ultima posição
             while ( resultQuery.next() ){
                 integrantes.add(converterIntegrante(resultQuery));
-                System.out.println(integrantes);
             }
             return integrantes;
 
@@ -57,7 +56,7 @@ public class IntegranteJDBC implements IntegranteInterface {
         int id = result.getInt("id");
         String nome = result.getString("nome");
         String date = result.getString("dataDeNascimento");
-        String cpf = result.getString("cpf");
+        CPF cpf = new CPF(result.getString("cpf"));
         LocalDate dataDeNascimento = LocalDate.of(
                 Integer.parseInt(date.substring(0, 4)),
                 Integer.parseInt(date.substring(5, 7)),
@@ -75,7 +74,7 @@ public class IntegranteJDBC implements IntegranteInterface {
 
             statement.setString(1, integrante.getNome());
             statement.setDate(2, java.sql.Date.valueOf(integrante.getDataDeNascimento()));
-            statement.setString(3, integrante.getCpf());
+            statement.setString(3, integrante.getCpf().valor());
             statement.executeQuery();
 
         } catch (SQLException e){
@@ -87,11 +86,11 @@ public class IntegranteJDBC implements IntegranteInterface {
     public void atualizaIntegrante(Integrante integrante) {
         logger.log(Level.INFO, "Lista integrante"+ integrante);
         try{
-            PreparedStatement statement = connection.prepareStatement("" +
-                    "UPDATE integrante SET nome=?, cpf, dataDeNascimento=? WHERE id=?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE integrante SET nome=?, dataDeNascimento=?, cpf=? WHERE id=?");
             statement.setString(1, integrante.getNome());
-            statement.setString(2, integrante.getCpf());
-            statement.setString(3, String.valueOf(integrante.getDataDeNascimento()));
+            statement.setDate(2, java.sql.Date.valueOf(integrante.getDataDeNascimento()));
+            statement.setString(3, integrante.getCpf().valor());
             statement.setInt(4, integrante.getId());
             statement.executeQuery();
         } catch (SQLException e) {

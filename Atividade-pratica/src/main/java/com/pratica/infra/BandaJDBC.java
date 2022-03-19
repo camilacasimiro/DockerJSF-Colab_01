@@ -3,6 +3,7 @@ package com.pratica.infra;
 import com.pratica.controller.BandaController;
 import com.pratica.domain.Banda;
 import com.pratica.domain.BandaInterface;
+import com.pratica.domain.CPF;
 import com.pratica.domain.Integrante;
 
 import javax.ejb.Stateless;
@@ -155,5 +156,46 @@ public class BandaJDBC implements BandaInterface {
             Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+
+    public List<Integrante> localizarIntegranteComId(int idBanda) {
+        try{
+
+            logger.log(Level.INFO, "Integrante busca Entrando ");
+            List<Integrante> dependentes = new ArrayList<>();
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM integrante_banda ib INNER JOIN integrante i ON ib.id_integrante = i.id INNER JOIN banda b ON ib.id_banda = b.id WHERE b.id = ? ");
+
+            statement.setLong(1, idBanda);
+            statement.executeQuery();
+
+            ResultSet dependentesResult = statement.getResultSet();
+
+            while ( dependentesResult.next() ){
+                dependentes.add(converterIntegrante(dependentesResult));
+                System.out.println(dependentes);
+            }
+            return dependentes;
+
+        } catch(SQLException ex){
+            Logger.getLogger(BandaJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public Integrante converterIntegrante (ResultSet result) throws SQLException{
+        int id = result.getInt("id");
+        String nome = result.getString("nome");
+        String date = result.getString("dataDeNascimento");
+        CPF cpf = new CPF(result.getString("cpf"));
+        LocalDate dataDeNascimento = LocalDate.of(
+                Integer.parseInt(date.substring(0, 4)),
+                Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10))
+        );
+
+        return new Integrante(id, nome, dataDeNascimento, cpf);
     }
 }

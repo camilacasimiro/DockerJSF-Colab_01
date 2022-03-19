@@ -25,25 +25,32 @@
             <f:facet name="header">Nome Fantasia</f:facet>
             <h:outputText value="#{banda.nomeFantasia}"/>
         </h:column>
+
         <h:column>
             <f:facet name="header">Local de origem</f:facet>
             <h:outputText value="#{banda.localDeOrigem}" />
         </h:column>
+
         <h:column>
-            <f:facet name="header">Integrantes</f:facet>
-            <p:selectOneMenu id="option" var="integrante" value="#{banda.integrantes}">
-            <f:selectItem itemLabel="Integrantes" itemValue=""/>
-            <f:selectItems value="#{integrante}" />
+            <f:facet name ="header">Integrante</f:facet>
+            <p:selectOneMenu id="labeled"
+                             alwaysDisplayLabel="true" styleClass="ancho200">
+                <f:selectItem itemLabel="Integrantes" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{controller.listarIntegrantePorIdBanda(banda.id)}" var="int"
+                               itemLabel="#{int.nome}" itemValue="#{int}"/>
             </p:selectOneMenu>
         </h:column>
+
         <h:column>
             <f:facet name="header">remover</f:facet>
             <h:commandButton action="#{controller.deleteBanda(banda)}" value=" X "  class=" btn" />
         </h:column>
+
         <h:column>
             <f:facet name="header">editar</f:facet>
             <h:commandButton action="#{controller.updateBanda(banda)}" value=" ⚙ " class="btn"/>
         </h:column>
+
     </h:dataTable>
 
     <h:panelGroup layout="block" class="row center">

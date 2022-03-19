@@ -2,10 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      template="../template.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
 
     <ui:define name="head-template">
         <h:head>
@@ -27,9 +28,15 @@
                 <h:outputLabel value="Origem"/>
                 <h:inputText value="#{controller.banda.localDeOrigem}"/>
 
-                <h:selectOneMenu id="selectIntegrantes">
-                    <f:selectItem itemValue="" itemLabel="Integrantes" />
-                </h:selectOneMenu>
+                <h:column>
+                    <f:facet name ="header">Integrante</f:facet>
+                    <p:selectOneMenu id="labeled"
+                                     alwaysDisplayLabel="true" styleClass="ancho200">
+                        <f:selectItem itemLabel="Integrantes" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{controllerInteg.listIntegrantes()}" var="int"
+                                       itemLabel="#{int.nome}" itemValue="#{int}"/>
+                    </p:selectOneMenu>
+                </h:column>
 
                 <h:commandButton action="#{controller.inserirBanda()}" value="Salvar" class="btn"/>
             </h:panelGrid>

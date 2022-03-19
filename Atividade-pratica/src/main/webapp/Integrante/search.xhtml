@@ -16,7 +16,7 @@
     </ui:define>
 
     <ui:define name="container-template">
-        <h1 class="header center orange-text">Busca de Integrantes</h1>
+        <h1 class="header center orange-text">Busca de Integrantes por cpf</h1>
 
         <h:form id="form">
             <div class="p-col-12 p-md-4">
@@ -34,11 +34,15 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Data de Nascimento</f:facet>
-                    <h:outputText value="#{integrante.dataDeNascimento}"/>
+                    <h:outputText value="#{integrante.dataDeNascimento}"
+                                  converter="converter.data"
+                    />
                 </h:column>
                 <h:column>
                     <f:facet name="header">CPF</f:facet>
-                    <h:outputText value="#{integrante.cpf}"/>
+                    <h:outputText value="#{integrante.cpf}"
+                                  converter="converter.cpf"
+                                  validator="validator.cpf"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">remover</f:facet>

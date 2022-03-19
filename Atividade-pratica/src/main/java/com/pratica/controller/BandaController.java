@@ -80,6 +80,10 @@ public class BandaController implements Serializable {
         return "/Banda/list?faces-redirect=true";
     }
 
+    public List<Integrante> listarIntegrantePorIdBanda(int idBanda){
+        List<Integrante> integrante = bandaInterface.localizarIntegranteComId(idBanda);
+        return integrante;
+    }
 
     public String getLocal() {
         return local;

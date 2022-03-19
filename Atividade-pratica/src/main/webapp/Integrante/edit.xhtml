@@ -4,7 +4,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://primefaces.org/ui"
                 template="../template.xhtml">
 
     <ui:define name="head-template">
@@ -24,11 +24,19 @@
                 <h:outputLabel value="Nome"/>
                 <h:inputText value="#{controllerInteg.integrante.nome}"/>
 
-                <h:outputLabel value="Data de Nascimento"/>
-                <h:inputText value="#{controllerInteg.integrante.dataDeNascimento}"/>
+                <h:outputLabel for="dataDeNascimento" value="Data de Nascimento (YYYY/MM/DD"/>
+                <h:inputText id="dataDeNascimento" value="#{controllerInteg.integrante.dataDeNascimento}"
+                             converter="converter.data"
+                />
 
                 <h:outputLabel value="CPF"/>
-                <h:inputText value="#{controllerInteg.integrante.cpf}"/>
+                <h:inputText  id="cpf"
+                              value="#{controllerInteg.integrante.cpf}"
+                              converter="converter.cpf"
+                              validator="validator.cpf"/>
+
+                <a:message for="cpf"  errorClass="erro" />
+                <br></br>
 
                 <h:commandButton action="#{controllerInteg.salvarIntegrante()}" value="Salvar" class="btn"/>
             </h:panelGrid>
